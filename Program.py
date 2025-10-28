@@ -18,7 +18,7 @@ def main():
     
     while True:
         try:
-            num1 = float(input("Введіть перше число: "))
+            num1 = float(input("Введіть перше число:    "))
             op = input("Введіть операцію (+, -, *, / або 'q' для виходу): ").strip()
             
             if op.lower() == 'q':

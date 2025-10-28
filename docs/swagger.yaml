@@ -1,55 +1,135 @@
 openapi: 3.0.3
 info:
-  title: Console Calculator API
+  title: Console Calculator Documentation
   version: 1.0.0
-  description: API для простого калькулятора. Підтримує операції +, -, *, /, ^.
-servers:
-  - url: http://localhost:8000
-    description: Локальний сервер
+  description: Документація для консольного калькулятора. Підтримує функції add, subtract, multiply, divide та pow.
+
+components:
+  schemas:
+    Add:
+      type: object
+      properties:
+        a:
+          type: number
+          description: Перше число
+        b:
+          type: number
+          description: Друге число
+      required:
+        - a
+        - b
+      description: Додавання двох чисел
+    Subtract:
+      type: object
+      properties:
+        a:
+          type: number
+        b:
+          type: number
+      required:
+        - a
+        - b
+      description: Віднімання двох чисел
+    Multiply:
+      type: object
+      properties:
+        a:
+          type: number
+        b:
+          type: number
+      required:
+        - a
+        - b
+      description: Множення двох чисел
+    Divide:
+      type: object
+      properties:
+        a:
+          type: number
+        b:
+          type: number
+      required:
+        - a
+        - b
+      description: Ділення двох чисел (повертає помилку при діленні на нуль)
+    Pow:
+      type: object
+      properties:
+        a:
+          type: number
+        b:
+          type: number
+      required:
+        - a
+        - b
+      description: Піднесення числа до степеня
+    OperationResponse:
+      type: object
+      properties:
+        result:
+          type: number
+          description: Результат обчислення
+        error:
+          type: string
+          description: Повідомлення про помилку (наприклад, ділення на нуль)
 
 paths:
-  /calculate:
+  /functions/add:
     get:
-      summary: Виконує обчислення двох чисел
-      description: Підтримуються операції додавання, віднімання, множення, ділення та піднесення до степеня.
-      parameters:
-        - in: query
-          name: a
-          required: true
-          schema:
-            type: number
-          description: Перше число
-        - in: query
-          name: b
-          required: true
-          schema:
-            type: number
-          description: Друге число
-        - in: query
-          name: op
-          required: true
-          schema:
-            type: string
-            enum: ["+", "-", "*", "/", "^"]
-          description: Операція
+      summary: add(a, b)
+      description: Додавання двох чисел
       responses:
         '200':
-          description: Результат обчислення
+          description: Успішний результат додавання
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  result:
-                    type: number
-                    description: Результат обчислення
-        '400':
-          description: Помилка вводу або невідома операція
+                $ref: '#/components/schemas/OperationResponse'
+
+  /functions/subtract:
+    get:
+      summary: subtract(a, b)
+      description: Віднімання двох чисел
+      responses:
+        '200':
+          description: Успішний результат віднімання
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                    example: "Помилка: ділення на нуль!"
+                $ref: '#/components/schemas/OperationResponse'
+
+  /functions/multiply:
+    get:
+      summary: multiply(a, b)
+      description: Множення двох чисел
+      responses:
+        '200':
+          description: Успішний результат множення
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationResponse'
+
+  /functions/divide:
+    get:
+      summary: divide(a, b)
+      description: Ділення двох чисел
+      responses:
+        '200':
+          description: Успішний результат ділення
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationResponse'
+
+  /functions/pow:
+    get:
+      summary: pow(a, b)
+      description: Піднесення числа до степеня
+      responses:
+        '200':
+          description: Успішний результат піднесення до степеня
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationResponse'

@@ -1,0 +1,55 @@
+openapi: 3.0.3
+info:
+  title: Console Calculator API
+  version: 1.0.0
+  description: API для простого калькулятора. Підтримує операції +, -, *, /, ^.
+servers:
+  - url: http://localhost:8000
+    description: Локальний сервер
+
+paths:
+  /calculate:
+    get:
+      summary: Виконує обчислення двох чисел
+      description: Підтримуються операції додавання, віднімання, множення, ділення та піднесення до степеня.
+      parameters:
+        - in: query
+          name: a
+          required: true
+          schema:
+            type: number
+          description: Перше число
+        - in: query
+          name: b
+          required: true
+          schema:
+            type: number
+          description: Друге число
+        - in: query
+          name: op
+          required: true
+          schema:
+            type: string
+            enum: ["+", "-", "*", "/", "^"]
+          description: Операція
+      responses:
+        '200':
+          description: Результат обчислення
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: number
+                    description: Результат обчислення
+        '400':
+          description: Помилка вводу або невідома операція
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Помилка: ділення на нуль!"

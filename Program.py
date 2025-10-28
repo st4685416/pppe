@@ -23,7 +23,7 @@ def main():
     while True:
         try:
             num1 = float(input("Введіть перше число:    "))
-            op = input("Введіть операцію (+, -, *, / або 'q' для виходу): ").strip()
+            op = input("Введіть операцію (+, -, *, /, ^ або 'q' для виходу): ").strip()
             
             if op.lower() == 'q':
                 print("Вихід із програми. Бувай!")
@@ -39,6 +39,8 @@ def main():
                 result = multiply(num1, num2)
             elif op == '/':
                 result = divide(num1, num2)
+            elif op=='^':
+                result = pow(num1, num2)
             else:
                 print("Невідома операція! Спробуйте ще раз.")
                 continue
